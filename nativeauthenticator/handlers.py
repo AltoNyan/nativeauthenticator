@@ -58,7 +58,7 @@ class SignUpHandler(LocalBase):
                            "commas and is not too common.").format(pw_len)
 
             else:
-                message = ("Something went wrong. Be sure your password "
+                message = ("Something went wrong. Maybe the provided username is not valid. Also be sure your password "
                            " doesn't have spaces or commas and is not too "
                            "common.")
 
