@@ -38,6 +38,7 @@ class SignUpHandler(LocalBase):
             'signup.html',
             ask_email=self.authenticator.ask_email_on_signup,
             two_factor_auth=self.authenticator.allow_2fa,
+            sync=True,
         )
         self.finish(html)
 
@@ -95,6 +96,7 @@ class SignUpHandler(LocalBase):
                 two_factor_auth=self.authenticator.allow_2fa,
                 two_factor_auth_user=user_2fa,
                 two_factor_auth_value=otp_secret,
+                sync=True,
             )
             self.finish(html)
 
@@ -109,6 +111,7 @@ class AuthorizationHandler(LocalBase):
             'autorization-area.html',
             ask_email=self.authenticator.ask_email_on_signup,
             users=self.db.query(UserInfo).all(),
+            sync=True,
         )
         self.finish(html)
 
@@ -126,7 +129,7 @@ class ChangePasswordHandler(LocalBase):
     @web.authenticated
     async def get(self):
         self._register_template_path()
-        html = self.render_template('change-password.html')
+        html = self.render_template('change-password.html', sync=True,)
         self.finish(html)
 
     @web.authenticated
@@ -138,6 +141,7 @@ class ChangePasswordHandler(LocalBase):
         html = self.render_template(
             'change-password.html',
             result_message='Your password has been changed successfully',
+            sync=True,
         )
         self.finish(html)
 
@@ -158,4 +162,5 @@ class LoginHandler(LoginHandler, LocalBase):
                 self.authenticator.login_url(self.hub.base_url),
                 {'next': self.get_argument('next', '')},
             ),
+            sync=True,
         )
